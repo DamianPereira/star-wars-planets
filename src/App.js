@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import Card from './components/Card';
+import { observer } from 'mobx-react-lite';
+import { values } from 'mobx';
+import { onSnapshot } from 'mobx-state-tree';
 
-function App() {
+const App = observer((props) => {
+  onSnapshot(props.store, (snapshot) => console.log(snapshot));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={() => props.store.fetchPlanets()}>Fetch Planets</button>
+      <div className="gap-8 bg-black overflow-auto columns-2 min-h-screen gap-8">
+        {values(props.store.planets).map((planet) => (
+          <Card className="m-3" key={planet.name}>
+            <h1 className="text-white">{planet.name}</h1>
+          </Card>
+        ))}
+      </div>
+    </>
   );
-}
+});
 
 export default App;

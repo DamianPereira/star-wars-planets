@@ -1,13 +1,85 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.border-star-wars::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: lightgray;
+  border-radius: 3px;
+  /* Settings */
+  --border: 3px;
+  --border-opposite: calc(100% - var(--border));
+  --notch-length: 100px;
+  --notch-start: calc(100% - var(--notch-length) * 2);
+  --notch-end: calc(var(--notch-start) + var(--notch-length));
+  --notch-height: 15px;
+  --notch-shift: 3%;
+  --corner-depth: 45px;
+
+  /* Nodes */
+  --top-right: 100% 0%;
+  --bottom-right: 100% 100%;
+  --bottom-left: 0% 100%;
+  --top-right-inner: var(--border-opposite) var(--border);
+  --top-left-inner: var(--border) var(--border);
+  --bottom-left-inner: var(--border) var(--border-opposite);
+  --bottom-right-inner: var(--border-opposite) var(--border-opposite);
+  --double-spot: var(--border) 100%;
+
+  /* Corner */
+  --corner-bottom: 0% var(--corner-depth);
+  --corner-top: var(--corner-depth) 0%;
+  --corner-bottom-inner: var(--border) calc(var(--corner-depth) + var(--border));
+  --corner-top-inner: calc(var(--corner-depth) + var(--border)) var(--border);
+
+  /* Notch */
+  --notch-inner-end-bottom: calc(var(--notch-end) + var(--notch-shift))
+  var(--border-opposite);
+  --notch-inner-end-top: var(--notch-end)
+  calc(var(--border-opposite) - var(--notch-height));
+  --notch-inner-start-top: var(--notch-start)
+  calc(var(--border-opposite) - var(--notch-height));
+  --notch-inner-start-bottom: calc(var(--notch-start) - var(--notch-shift))
+  var(--border-opposite);
+
+  --notch-outer-start-bottom: calc(
+          var(--notch-start) + var(--border) - var(--notch-shift)
+  )
+  100%;
+  --notch-outer-start-top: calc(var(--notch-start) + var(--border))
+  calc(100% - var(--notch-height));
+  --notch-outer-end-top: calc(var(--notch-end) - var(--border))
+  calc(100% - var(--notch-height));
+  --notch-outer-end-bottom: calc(
+          var(--notch-end) - var(--border) + var(--notch-shift)
+  )
+  100%;
+
+  clip-path: polygon(
+          var(--corner-top),
+          var(--corner-bottom),
+          var(--bottom-left),
+          var(--double-spot),
+          var(--corner-bottom-inner),
+          var(--corner-top-inner),
+          var(--top-right-inner),
+          var(--bottom-right-inner),
+          var(--notch-inner-end-bottom),
+          var(--notch-inner-end-top),
+          var(--notch-inner-start-top),
+          var(--notch-inner-start-bottom),
+          var(--bottom-left-inner),
+          var(--double-spot),
+          var(--notch-outer-start-bottom),
+          var(--notch-outer-start-top),
+          var(--notch-outer-end-top),
+          var(--notch-outer-end-bottom),
+          var(--bottom-right),
+          var(--top-right)
+  );
 }
