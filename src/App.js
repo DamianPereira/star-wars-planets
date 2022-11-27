@@ -11,9 +11,7 @@ const App = observer((props) => {
       <button onClick={() => props.store.fetchPlanets()}>Fetch Planets</button>
       <div className="gap-8 bg-black overflow-auto columns-2 min-h-screen gap-8">
         {values(props.store.planets).map((planet) => (
-          <Card className="m-3" key={planet.name}>
-            <h1 className="text-white">{planet.name}</h1>
-          </Card>
+
         ))}
       </div>
     </>

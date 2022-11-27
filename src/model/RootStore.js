@@ -1,6 +1,5 @@
 import { flow, types } from 'mobx-state-tree';
 import { Planet } from './Planet';
-import { values } from 'mobx';
 
 const RootStore = types.model({ planets: types.array(Planet) }).actions((self) => ({
   fetchPlanets: flow(function* fetchPlanets() {
