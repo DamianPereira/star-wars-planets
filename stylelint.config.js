@@ -7,5 +7,11 @@ module.exports = {
         ignoreAtRules: ['tailwind', 'apply', 'variants', 'responsive', 'screen'],
       },
     ],
+    'function-no-unknown': [
+      true,
+      {
+        ignoreFunctions: ['theme'],
+      },
+    ],
   },
 };

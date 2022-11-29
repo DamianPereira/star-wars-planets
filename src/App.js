@@ -1,20 +1,28 @@
-import Card from './components/Card';
 import { observer } from 'mobx-react-lite';
 import { values } from 'mobx';
 import { onSnapshot } from 'mobx-state-tree';
+import { Planet } from './components/Planet/Planet';
 
-const App = observer((props) => {
-  onSnapshot(props.store, (snapshot) => console.log(snapshot));
+const App = observer(({ store }) => {
+  onSnapshot(store, (snapshot) => console.log(snapshot));
 
   return (
-    <>
-      <button onClick={() => props.store.fetchPlanets()}>Fetch Planets</button>
-      <div className="gap-8 bg-black overflow-auto columns-2 min-h-screen gap-8">
-        {values(props.store.planets).map((planet) => (
-
+    <div className="bg-black min-h-screen">
+      <div className="flex justify-center items-center mb-5">
+        <button
+          className="border-white border-2 p-2 text-white"
+          onClick={() => store.fetchPlanets()}
+        >
+          Fetch Planets
+        </button>
+        <h1 className="ml-3 text-white">State: {store.planetState}</h1>
+      </div>
+      <div className="m-auto max-w-screen-xl columns-2 gap-8 space-y-5">
+        {values(store.planets).map((planet) => (
+          <Planet planet={planet} key={planet.name} />
         ))}
       </div>
-    </>
+    </div>
   );
 });
 
