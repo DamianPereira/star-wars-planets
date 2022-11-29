@@ -4,7 +4,7 @@ import { onSnapshot } from 'mobx-state-tree';
 import { Planet } from './components/Planet/Planet';
 
 const App = observer(({ store }) => {
-  onSnapshot(store, (snapshot) => console.log(snapshot));
+  // onSnapshot(store, (snapshot) => console.log(snapshot));
 
   return (
     <div className="bg-black min-h-screen">
@@ -17,9 +17,9 @@ const App = observer(({ store }) => {
         </button>
         <h1 className="ml-3 text-white">State: {store.planetState}</h1>
       </div>
-      <div className="m-auto max-w-screen-xl columns-2 gap-8 space-y-5">
+      <div className="m-auto max-w-screen-xl flex flex-wrap">
         {values(store.planets).map((planet) => (
-          <Planet planet={planet} key={planet.name} />
+          <Planet className="w-50" planet={planet} key={planet.name} />
         ))}
       </div>
     </div>

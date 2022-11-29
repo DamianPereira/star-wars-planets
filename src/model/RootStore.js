@@ -1,6 +1,7 @@
 import { flow, types } from 'mobx-state-tree';
 import { Planet } from './Planet';
 import { PlanetService } from '../services/PlanetService';
+import { values } from 'mobx';
 
 const RootStore = types
   .model({
@@ -15,7 +16,12 @@ const RootStore = types
       self.planets = [];
       self.planetState = 'loading';
       try {
-        self.planets = yield PlanetService.fetchPlanets();
+        let page = 1;
+        while (page) {
+          const planetRequest = yield PlanetService.fetchPlanets(page);
+          self.planets.push(...planetRequest.results);
+          page = planetRequest.next !== null ? page + 1 : 0;
+        }
         self.planetState = 'done';
       } catch (error) {
         console.error('Failed to fetch planets', error);

@@ -1,6 +1,6 @@
 export class PlanetService {
-  static async fetchPlanets() {
-    const planets = await fetch('https://swapi.dev/api/planets');
-    return (await planets.json()).results;
+  static async fetchPlanets(page) {
+    const planets = await fetch('https://swapi.dev/api/planets?' + new URLSearchParams({ page }));
+    return await planets.json();
   }
 }

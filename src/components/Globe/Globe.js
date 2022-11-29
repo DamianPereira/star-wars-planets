@@ -13,7 +13,6 @@ const SurfaceWater = ({ surface_water }) => (
 const ClimateSection = ({ climate }) => {
   return (
     <div
-      key={climate}
       className={classNames('flex-1', {
         'bg-amber-300': climate === 'arid',
         'bg-amber-800': climate === 'rocky',
@@ -31,7 +30,7 @@ export const Globe = ({ climates, terrains, surface_water }) => {
     <div className="rounded-full h-40 w-40 flex flex-col overflow-hidden rotate-45">
       <SurfaceWater surface_water={surface_water} />
       {climates.map((climate) => (
-        <ClimateSection climate={climate} />
+        <ClimateSection key={climate} climate={climate} />
       ))}
     </div>
   );
