@@ -17,9 +17,9 @@ const App = observer(({ store }) => {
         </button>
         <h1 className="ml-3 text-white">State: {store.planetState}</h1>
       </div>
-      <div className="m-auto max-w-screen-xl flex flex-wrap">
+      <div className="m-auto max-w-screen-xl grid grid-cols-1 xl:grid-cols-2 gap-8 p-6">
         {values(store.planets).map((planet) => (
-          <Planet className="w-50" planet={planet} key={planet.name} />
+          <Planet planet={planet} key={planet.name} />
         ))}
       </div>
     </div>
