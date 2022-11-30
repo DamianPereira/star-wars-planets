@@ -5,7 +5,7 @@ import { Planet } from './components/Planet/Planet';
 
 const App = observer(({ store }) => {
   // onSnapshot(store, (snapshot) => console.log(snapshot));
-
+  const isLoading = store.planetState === 'loading';
   return (
     <div className="bg-black min-h-screen">
       <div className="flex justify-center items-center mb-5">
@@ -21,6 +21,7 @@ const App = observer(({ store }) => {
         {values(store.planets).map((planet) => (
           <Planet planet={planet} key={planet.name} />
         ))}
+        {isLoading && Array.from(Array(10)).map((_, i) => <Planet skeleton key={i} />)}
       </div>
     </div>
   );

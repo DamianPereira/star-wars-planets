@@ -28,7 +28,7 @@ describe('App', () => {
     const tatooine = await screen.findByText('Tatooine');
     expect(tatooine).toBeInTheDocument();
   });
-  it('Renders emojis in the planet name', async () => {
+  it('Renders a planet when the diameter is "unknown" and name has emojis', async () => {
     render(<App store={store} />);
     const fetchButton = screen.getByRole('button', { name: 'Fetch Planets' });
     userEvent.click(fetchButton);

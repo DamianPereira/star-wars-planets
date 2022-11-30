@@ -25,13 +25,15 @@ const ClimateSection = ({ climate }) => {
   );
 };
 
-export const Globe = ({ climates, terrains, surface_water }) => {
+export const Globe = ({ skeleton, climates, surface_water }) => {
   return (
-    <div className="rounded-full h-40 w-40 flex flex-col overflow-hidden rotate-45">
-      <SurfaceWater surface_water={surface_water} />
-      {climates.map((climate) => (
-        <ClimateSection key={climate} climate={climate} />
-      ))}
+    <div
+      className={classNames('rounded-full h-40 w-40 flex flex-col overflow-hidden rotate-45', {
+        'bg-gray-200': skeleton,
+      })}
+    >
+      {!skeleton && <SurfaceWater surface_water={surface_water} />}
+      {!skeleton && climates.map((climate) => <ClimateSection key={climate} climate={climate} />)}
     </div>
   );
 };
