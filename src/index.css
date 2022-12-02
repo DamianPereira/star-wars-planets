@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: SFDistantGalaxy;
+  src: url("./fonts/SFDistantGalaxy.ttf");
+}
+
+@font-face {
+  font-family: SFDistantGalaxyOutline;
+  src: url("./fonts/SFDistantGalaxyOutline.ttf");
+}
+
 .border-star-wars::before {
   content: "";
   position: absolute;
