@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         'distant-galaxy': 'SFDistantGalaxy',
         'distant-galaxy-outline': 'SFDistantGalaxyOutline',
+        'distant-galaxy-symbols': 'SFDistantGalaxySymbols',
       },
     },
   },

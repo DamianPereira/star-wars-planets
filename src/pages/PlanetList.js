@@ -20,8 +20,7 @@ export const PlanetList = observer(({ store }) => {
       {store.planetsProcessed.map((planet) => (
         <Planet planet={planet} key={planet.name} onClickResidents={handleClickResidents} />
       ))}
-      {store.planetState === 'loading' &&
-        Array.from(Array(10)).map((_, i) => <Planet loading key={i} />)}
+      {store.state === 'loading' && Array.from(Array(10)).map((_, i) => <Planet loading key={i} />)}
     </div>
   );
 });

@@ -9,6 +9,9 @@ export const Planet = types
     diameter: types.union(types.string, types.maybeNull(types.integer)),
     residents: types.array(types.string),
     url: types.identifier,
+    rotation_period: types.string,
+    orbital_period: types.string,
+    gravity: types.string,
   })
   .views((self) => ({
     get processedPlanet() {
@@ -20,6 +23,9 @@ export const Planet = types
         diameter: typeof self.diameter !== 'number' ? null : parseInt(self.planet.diameter),
         residents: self.residents,
         url: self.url,
+        rotation_period: self.rotation_period,
+        orbital_period: self.orbital_period,
+        gravity: self.gravity,
       };
     },
   }));

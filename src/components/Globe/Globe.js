@@ -3,9 +3,9 @@ import classNames from 'classnames';
 const SurfaceWater = ({ surface_water }) => (
   <div
     className={classNames('absolute inset-0 -rotate-45', {
-      'bg-[url(./images/75.svg)]': surface_water >= 75,
-      'bg-[url(./images/50.svg)]': surface_water >= 50 && surface_water < 75,
-      'bg-[url(./images/25.svg)]': surface_water >= 25 && surface_water < 50,
+      'bg-[url(./images/60.svg)]': surface_water >= 60,
+      'bg-[url(./images/30.svg)]': surface_water >= 30 && surface_water < 60,
+      'bg-[url(./images/10.svg)]': surface_water >= 10 && surface_water < 30,
     })}
   ></div>
 );
@@ -17,9 +17,20 @@ const ClimateSection = ({ climate }) => {
         'bg-amber-300': climate === 'arid',
         'bg-amber-800': climate === 'rocky',
         'bg-green-300': climate === 'temperate',
+        'bg-green-400': climate === 'artificial temperate',
+        'bg-cyan-500': climate === 'frigid',
         'bg-cyan-300': climate === 'frozen',
+        'bg-cyan-200': climate === 'subartic',
+        'bg-cyan-100': climate === 'artic',
+        'bg-blue-400': climate === 'humid',
+        'bg-blue-300': climate === 'moist',
+        'bg-stone-400': climate === 'polluted',
         'bg-slate-200': climate === 'murky',
+        'bg-slate-400': climate === 'windy',
         'bg-green-800': climate === 'tropical',
+        'bg-red-500': climate === 'hot',
+        'bg-red-300': climate === 'superheated',
+        'bg-gray-900': climate === 'unknown',
       })}
     ></div>
   );

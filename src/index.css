@@ -12,6 +12,11 @@
   src: url("./fonts/SFDistantGalaxyOutline.ttf");
 }
 
+@font-face {
+  font-family: SFDistantGalaxySymbols;
+  src: url("./fonts/SFDistantGalaxySymbols.ttf");
+}
+
 .border-star-wars::before {
   content: "";
   position: absolute;
