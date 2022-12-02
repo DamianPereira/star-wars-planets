@@ -2,7 +2,7 @@ import { flow, types } from 'mobx-state-tree';
 import { Planet } from './Planet';
 import { PlanetService } from '../services/PlanetService';
 
-const RootStore = types
+export const RootStore = types
   .model({
     planets: types.array(Planet),
     planetState: types.optional(
@@ -11,15 +11,20 @@ const RootStore = types
     ),
   })
   .actions((self) => ({
-    fetchPlanets: flow(function* fetchPlanets() {
+    initializePlanets: flow(function* fetchPlanets() {
+      if (self.planetState === 'loading') {
+        return;
+      }
       self.planets = [];
       self.planetState = 'loading';
       try {
         let page = 1;
-        while (page) {
+        let morePages = true;
+        while (morePages) {
           const planetRequest = yield PlanetService.fetchPlanets(page);
           self.planets.push(...planetRequest.results);
-          page = planetRequest.next !== null ? page + 1 : 0;
+          morePages = planetRequest.next !== null;
+          page++;
         }
         self.planetState = 'done';
       } catch (error) {
@@ -27,5 +32,7 @@ const RootStore = types
         self.planetState = 'error';
       }
     }),
+    afterCreate() {
+      self.initializePlanets();
+    },
   }));
-export const store = RootStore.create({});

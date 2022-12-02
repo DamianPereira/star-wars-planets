@@ -1,13 +1,16 @@
-import { observer } from 'mobx-react-lite';
 import { Route, Routes } from 'react-router-dom';
-import { PlanetList } from './PlanetList';
+import { PlanetList } from './pages/PlanetList';
+import { Residents } from './pages/Residents';
 
-const App = observer(({ store }) => {
+const App = ({ store }) => {
   return (
-    <Routes>
-      <Route path="/" element={<PlanetList store={store} />} />
-    </Routes>
+    <div className="bg-black min-h-screen">
+      <Routes>
+        <Route path="/" element={<PlanetList store={store} />} />
+        <Route path="/:planetUrl" element={<Residents store={store} />} />
+      </Routes>
+    </div>
   );
-});
+};
 
 export default App;
