@@ -8,11 +8,15 @@ export const PlanetList = observer(({ store }) => {
   // onSnapshot(store, (snapshot) => console.log(snapshot));
   const navigate = useNavigate();
   const handleClickResidents = (planetUrl) => {
-    navigate(`/${encodeURIComponent(planetUrl)}`);
+    navigate(`/planets/${encodeURIComponent(planetUrl)}`);
   };
 
   useEffect(() => {
-    store.initializePlanets();
+    if (store.planetsProcessed.length <= 1) {
+      store.initializePlanets();
+    }
+    store.clearSelectedResident();
+    store.clearSelectedPlanet();
   }, [store]);
 
   return (

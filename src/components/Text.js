@@ -5,7 +5,7 @@ export const Text = ({ loading, header, label, className, children, ...props }) 
   return (
     <Tag
       className={classNames(className, {
-        'bg-gray-200 text-transparent rounded-md': loading,
+        'bg-gray-200 text-transparent rounded-md animate-pulse': loading,
         'text-4xl font-distant-galaxy-outline': header,
         'font-distant-galaxy mr-2 tracking-wider leading-7': label,
         'text-gray-100': !loading,

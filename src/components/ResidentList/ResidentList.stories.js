@@ -1,6 +1,6 @@
 import { ResidentList } from './ResidentList';
 import { TatooineMock } from '../../mocks/TatooineMock';
-import { LukeSkywalker } from '../../mocks/LukeSkywalker';
+import { PeopleGenerator } from '../../mocks/PeopleGenerator';
 
 export default {
   component: ResidentList,
@@ -9,6 +9,6 @@ export default {
 export const Default = {
   args: {
     selectedPlanet: TatooineMock,
-    selectedPlanetResidents: [LukeSkywalker, LukeSkywalker, LukeSkywalker],
+    selectedPlanetResidents: [PeopleGenerator(1), PeopleGenerator(2), PeopleGenerator(3)],
   },
 };

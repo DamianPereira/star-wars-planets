@@ -15,8 +15,13 @@ export const RootStore = types
       types.enumeration('state', ['unstarted', 'loading', 'done', 'error']),
       'unstarted'
     ),
+    setSelectedResidentState: types.optional(
+      types.enumeration('state', ['unstarted', 'loading', 'done', 'error']),
+      'unstarted'
+    ),
     selectedPlanet: types.maybeNull(types.reference(Planet)),
     selectedPlanetResidents: types.array(People),
+    selectedResident: types.maybeNull(types.reference(People)),
   })
   .views((self) => ({
     get planetsProcessed() {
@@ -25,10 +30,9 @@ export const RootStore = types
   }))
   .actions((self) => ({
     initializePlanets: flow(function* initializePlanets() {
-      if (self.initializePlanetsState === 'loading' || self.planets.length > 1) {
+      if (self.initializePlanetsState === 'loading') {
         return;
       }
-      self.selectedPlanet = null;
       self.planets = [];
       self.initializePlanetsState = 'loading';
       try {
@@ -65,7 +69,9 @@ export const RootStore = types
       self.selectedPlanet = planetUrl;
       for (const residentUrl of self.selectedPlanet.residents) {
         try {
-          self.selectedPlanetResidents.push(yield PlanetService.fetchPeople({ residentUrl }));
+          self.selectedPlanetResidents.push(
+            yield PlanetService.fetchPeople({ peopleUrl: residentUrl })
+          );
         } catch (error) {
           console.error('Failed to fetch planets', error);
           self.setSelectedPlanetState = 'error';
@@ -73,4 +79,32 @@ export const RootStore = types
       }
       self.setSelectedPlanetState = 'done';
     }),
+    setSelectedResident: flow(function* setSelectedResident(residentUrl) {
+      if (self.setSelectedResidentState === 'loading') {
+        return;
+      }
+      self.selectedResident = null;
+      self.setSelectedResidentState = 'loading';
+      const existingResident = values(self.selectedPlanetResidents).find(
+        (resident) => resident.url === residentUrl
+      );
+      if (!existingResident) {
+        try {
+          self.selectedPlanetResidents = [
+            yield PlanetService.fetchPeople({ peopleUrl: residentUrl }),
+          ];
+        } catch (error) {
+          console.error('Failed to fetch planets', error);
+          self.setSelectedResidentState = 'error';
+        }
+      }
+      self.selectedResident = residentUrl;
+      self.setSelectedResidentState = 'done';
+    }),
+    clearSelectedPlanet: () => {
+      self.selectedPlanet = null;
+    },
+    clearSelectedResident: () => {
+      self.selectedResident = null;
+    },
   }));

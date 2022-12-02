@@ -7,14 +7,25 @@ const Separator = () => (
 );
 
 export const Breadcrumbs = observer(({ store }) => {
-  const selectedPlanetText = store.selectedPlanet === null ? '' : store.selectedPlanet.name;
   return (
     <div className="py-4 flex flex-row items-center">
       <Link to={'/'}>
         <Text label>All Planets</Text>
       </Link>
-      <Separator />
-      <Text label>{selectedPlanetText}</Text>
+      {store.selectedPlanet && (
+        <>
+          <Separator />
+          <Link to={`/planets/${encodeURIComponent(store.selectedPlanet.url)}`}>
+            <Text label>{store.selectedPlanet.name}</Text>
+          </Link>
+        </>
+      )}
+      {store.selectedResident && (
+        <>
+          <Separator />
+          <Text label>{store.selectedResident.name}</Text>
+        </>
+      )}
     </div>
   );
 });
