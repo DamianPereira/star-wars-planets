@@ -8,6 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
 import { userEvent } from '@storybook/testing-library';
 import { RootStore } from './model/RootStore';
+import { handlers } from './mocks/handlers';
 
 describe('App', () => {
   const renderApp = () => {
@@ -19,29 +20,6 @@ describe('App', () => {
       </React.StrictMode>
     );
   };
-
-  beforeEach(() => {
-    server.use(
-      rest.get('https://swapi.dev/api/planets', (req, res, ctx) => {
-        const page1Planets = [TatooineMock];
-        const page2Planets = [EdgePlanetMock];
-        return res(
-          ctx.status(200),
-          ctx.json(
-            req.url.searchParams.get('page') === '1'
-              ? {
-                  next: 'https://swapi.dev/api/planets?page=2',
-                  results: page1Planets,
-                }
-              : {
-                  next: null,
-                  results: page2Planets,
-                }
-          )
-        );
-      })
-    );
-  });
 
   it('Renders 10 loading planets while page is loading', async () => {
     renderApp();

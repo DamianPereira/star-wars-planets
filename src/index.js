@@ -5,6 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { RootStore } from './model/RootStore';
+import { setupWorker } from 'msw';
+import { handlers } from './mocks/handlers';
+
+if (process.env.NODE_ENV === 'development') {
+  const worker = setupWorker(...handlers);
+  worker.start();
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

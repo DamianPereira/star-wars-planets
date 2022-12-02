@@ -51,14 +51,19 @@
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "http": "npm:stream-http@^3.2.0",
+    "https": "npm:https-browserify@^1.0.0",
     "msw": "^0.49.1",
     "postcss": "^8.4.19",
     "prettier": "^2.8.0",
     "prop-types": "^15.8.1",
+    "stream": "npm:stream-browserify@^3.0.0",
     "stylelint": "^14.15.0",
     "stylelint-config-standard": "^29.0.0",
     "tailwindcss": "^3.2.4",
-    "webpack": "^5.75.0"
+    "timers": "npm:timers-browserify@^2.0.12",
+    "webpack": "^5.75.0",
+    "zlib": "npm:browserify-zlib@^0.2.0"
   },
   "eslintConfig": {
     "overrides": [
@@ -71,5 +76,8 @@
         }
       }
     ]
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

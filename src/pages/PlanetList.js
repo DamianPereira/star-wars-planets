@@ -1,14 +1,24 @@
 import { observer } from 'mobx-react-lite';
-import { values } from 'mobx';
 import { Planet } from '../components/Planet/Planet';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 // import { onSnapshot } from 'mobx-state-tree';
 
 export const PlanetList = observer(({ store }) => {
   // onSnapshot(store, (snapshot) => console.log(snapshot));
+  const navigate = useNavigate();
+  const handleClickResidents = (planetUrl) => {
+    navigate(`/${encodeURIComponent(planetUrl)}`);
+  };
+
+  useEffect(() => {
+    store.initializePlanets();
+  }, [store]);
+
   return (
     <div className="grid grid-cols-[minmax(0,_800px)] justify-center xl:grid-cols-[minmax(0,_800px)_minmax(0,_800px)] gap-8 p-6">
-      {values(store.planets).map((planet) => (
-        <Planet planet={planet} key={planet.name} />
+      {store.planetsProcessed.map((planet) => (
+        <Planet planet={planet} key={planet.name} onClickResidents={handleClickResidents} />
       ))}
       {store.planetState === 'loading' &&
         Array.from(Array(10)).map((_, i) => <Planet loading key={i} />)}

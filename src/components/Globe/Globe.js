@@ -29,7 +29,7 @@ export const Globe = ({ loading, climates, surface_water }) => {
   return (
     <div
       className={classNames(
-        'self-center rounded-full h-40 min-h-40 w-40 min-w-40 flex flex-col overflow-hidden rotate-45',
+        'self-center rounded-full h-40 w-40 shrink-0 flex flex-col overflow-hidden rotate-45',
         { 'bg-gray-200': loading }
       )}
     >
