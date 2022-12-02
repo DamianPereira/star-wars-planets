@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { Text } from '../components/Text';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
+import { ResidentList } from '../components/ResidentList/ResidentList';
 
 export const Residents = observer(({ store }) => {
   const { planetUrl } = useParams();
@@ -16,16 +17,9 @@ export const Residents = observer(({ store }) => {
   return store.setSelectedPlanetState === 'loading' ? (
     <Text>Loading...</Text>
   ) : (
-    <>
-      <Text header>Residents of {store.selectedPlanet?.name}</Text>
-      <ul>
-        {store.selectedPlanetResidents?.map((resident, index) => (
-          <li key={resident.name + index}>
-            <Text>{resident.name}</Text>
-          </li>
-        ))}
-        {store.selectedPlanetResidents.length === 0 && <Text>No residents!</Text>}
-      </ul>
-    </>
+    <ResidentList
+      selectedPlanetResidents={store.selectedPlanetResidents}
+      selectedPlanet={store.selectedPlanet}
+    />
   );
 });
