@@ -10,13 +10,16 @@ export const Residents = observer(({ store }) => {
     store.setSelectedPlanet(planetUrl);
   }, [planetUrl, store]);
 
-  return store.state === 'loading' || store.selectedPlanet === null ? (
+  if (store.selectedPlanet === null) {
+    return null;
+  }
+  return store.setSelectedPlanetState === 'loading' ? (
     <Text>Loading...</Text>
   ) : (
     <>
-      <Text header>Residents of {store.selectedPlanet.name}</Text>
+      <Text header>Residents of {store.selectedPlanet?.name}</Text>
       <ul>
-        {store.selectedPlanetResidents.map((resident, index) => (
+        {store.selectedPlanetResidents?.map((resident, index) => (
           <li key={resident.name + index}>
             <Text>{resident.name}</Text>
           </li>

@@ -1,3 +1,3 @@
 export const LukeSkywalker = {
-  name: 'LukeSkywalker',
+  name: 'Luke Skywalker',
 };

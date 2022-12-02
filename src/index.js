@@ -8,10 +8,10 @@ import { RootStore } from './model/RootStore';
 import { setupWorker } from 'msw';
 import { handlers } from './mocks/handlers';
 
-// if (process.env.NODE_ENV === 'development') {
-//   const worker = setupWorker(...handlers);
-//   worker.start();
-// }
+if (process.env.NODE_ENV === 'development') {
+  const worker = setupWorker(...handlers);
+  worker.start();
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
