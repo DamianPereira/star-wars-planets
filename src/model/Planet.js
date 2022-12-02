@@ -1,14 +1,14 @@
 import { types } from 'mobx-state-tree';
 
 export const Planet = types
-  .model({
+  .model('Planet', {
     name: types.string,
     climate: types.string,
     terrain: types.string,
     surface_water: types.string,
     diameter: types.union(types.string, types.maybeNull(types.integer)),
     residents: types.array(types.string),
-    url: types.string,
+    url: types.identifier,
   })
   .views((self) => ({
     get processedPlanet() {

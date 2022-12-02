@@ -8,7 +8,7 @@ export const Planet = ({ planet, className, loading, onClickResidents }) => (
   <Card
     aria-label={loading ? 'Loading' : planet?.name}
     className={classNames(
-      'flex flex-col md:flex-row justify-between gap-4 aspect-video',
+      'flex flex-col md:flex-row justify-between aspect-video',
       { 'animate-pulse': loading },
       className
     )}

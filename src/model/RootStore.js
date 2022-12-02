@@ -4,13 +4,13 @@ import { PlanetService } from '../services/PlanetService';
 import { values } from 'mobx';
 
 export const RootStore = types
-  .model({
+  .model('RootStore', {
     planets: types.array(Planet),
     planetState: types.optional(
       types.enumeration('planetState', ['unstarted', 'loading', 'done', 'error']),
       'unstarted'
     ),
-    selectedPlanet: types.maybeNull(Planet),
+    selectedPlanet: types.maybeNull(types.reference(Planet)),
   })
   .views((self) => ({
     get planetsProcessed() {
@@ -22,6 +22,7 @@ export const RootStore = types
       if (self.planetState === 'loading') {
         return;
       }
+      self.selectedPlanet = null;
       self.planets = [];
       self.planetState = 'loading';
       try {
@@ -40,12 +41,10 @@ export const RootStore = types
       }
     }),
     setSelectedPlanet: flow(function* setSelectedPlanet(planetUrl) {
-      const foundPlanet = values(self.planets).find((planet) => planet.url === planetUrl);
-      console.log('found planet: ', foundPlanet);
-      if (foundPlanet === undefined) {
-        self.selectedPlanet = yield PlanetService.fetchPlanet(planetUrl);
-      } else {
-        self.selectedPlanet = { ...foundPlanet };
+      const existingPlanet = values(self.planets).find((planet) => planet.url === planetUrl);
+      if (!existingPlanet) {
+        self.planets = [yield PlanetService.fetchPlanet(planetUrl)];
       }
+      self.selectedPlanet = planetUrl;
     }),
   }));
