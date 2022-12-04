@@ -14,7 +14,7 @@ export const Planet = ({ planet, className, loading, onClickResidents }) => (
     )}
   >
     <div className="flex-1 flex flex-col items-stretch gap-y-4">
-      <Text className="text-center" header loading={loading}>
+      <Text className="text-center overflow-y-auto overflow-x-hidden" header loading={loading}>
         {planet?.name}
       </Text>
       <Globe loading={loading} climates={planet?.climate} surface_water={planet?.surface_water} />

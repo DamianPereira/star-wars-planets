@@ -22,10 +22,13 @@ export const RootStore = types
     selectedPlanet: types.maybeNull(types.reference(Planet)),
     selectedPlanetResidents: types.array(People),
     selectedResident: types.maybeNull(types.reference(People)),
+    planetFilter: '',
   })
   .views((self) => ({
     get planetsProcessed() {
-      return self.planets.map((planet) => planet.processedPlanet);
+      return self.planets
+        .map((planet) => planet.processedPlanet)
+        .filter((planet) => planet.name.toLowerCase().includes(self.planetFilter.toLowerCase()));
     },
   }))
   .actions((self) => ({
@@ -36,14 +39,7 @@ export const RootStore = types
       self.planets = [];
       self.initializePlanetsState = 'loading';
       try {
-        let page = 1;
-        let morePages = true;
-        while (morePages) {
-          const planetRequest = yield PlanetService.fetchPlanets(page);
-          self.planets.push(...planetRequest.results);
-          morePages = planetRequest.next !== null;
-          page++;
-        }
+        self.planets = yield PlanetService.fetchAllPlanets();
         self.initializePlanetsState = 'done';
       } catch (error) {
         console.error('Failed to fetch planets', error);
@@ -99,6 +95,12 @@ export const RootStore = types
         }
       }
       self.selectedResident = residentUrl;
+      self.planets = [
+        yield PlanetService.fetchPlanet({
+          planetUrl: self.selectedResident.homeworld,
+        }),
+      ];
+      self.selectedPlanet = self.selectedResident.homeworld;
       self.setSelectedResidentState = 'done';
     }),
     clearSelectedPlanet: () => {
@@ -106,5 +108,8 @@ export const RootStore = types
     },
     clearSelectedResident: () => {
       self.selectedResident = null;
+    },
+    updatePlanetFilter: (newTerm) => {
+      self.planetFilter = newTerm;
     },
   }));

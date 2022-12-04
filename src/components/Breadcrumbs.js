@@ -8,7 +8,7 @@ const Separator = () => (
 
 export const Breadcrumbs = observer(({ store }) => {
   return (
-    <div className="py-4 flex flex-row items-center">
+    <div className="flex flex-row items-center">
       <Link to={'/'}>
         <Text label>All Planets</Text>
       </Link>

@@ -1,6 +1,5 @@
 import { Text } from '../Text';
 import classNames from 'classnames';
-import { Planet } from '../Planet/Planet';
 
 const Resident = ({ resident, handleClickResident, loading }) => (
   <button
@@ -23,7 +22,7 @@ export const ResidentList = ({
 }) => {
   return (
     <>
-      <Text header className="text-center w-fit m-auto" loading={loading}>
+      <Text header className="text-center w-fit m-auto mt-4" loading={loading}>
         Residents of {selectedPlanet?.name}
       </Text>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 max-w-screen-sm m-auto">

@@ -11,7 +11,7 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json(
-        req.url.searchParams.get('page') === '1'
+        req.url.searchParams.get('page') === '1' || !req.url.searchParams.get('page')
           ? {
               next: `${swapiEndpoint}/planets?page=2`,
               results: page1Planets,

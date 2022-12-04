@@ -44,11 +44,11 @@ describe('App', () => {
     expect(edgePlanet).toBeInTheDocument();
   });
 
-  it('Shows residents when clicking view residents', async () => {
+  it('Shows a planet resident when clicking view residents', async () => {
     renderApp();
     await clickResidents();
-    const residents = await screen.findAllByText('Luke Skywalker');
-    expect(residents.length).toBeGreaterThanOrEqual(1);
+    const resident = await screen.findByText('Luke Skywalker 1');
+    expect(resident).toBeInTheDocument();
   });
 
   it('Does not re-load planets when navigating back after viewing residents', async () => {
@@ -62,7 +62,7 @@ describe('App', () => {
   it('Loads one resident for each planet resident', async () => {
     renderApp();
     await clickResidents();
-    const residents = await screen.findAllByText('Luke Skywalker');
+    const residents = await screen.findAllByText(/Luke Skywalker/);
     expect(residents.length).toBe(TatooineMock.residents.length);
   });
 });
