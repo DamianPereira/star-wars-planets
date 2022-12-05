@@ -1,7 +1,7 @@
 import { Text } from '../Text';
 
 export const PlanetData = ({ planet, loading }) => {
-  const planetProperties = {
+  const planetFields = {
     Diameter: planet?.diameter,
     Climate: planet?.climate.join(', '),
     Terrain: planet?.terrain.join(', '),
@@ -13,15 +13,15 @@ export const PlanetData = ({ planet, loading }) => {
   return (
     <div className="flex-1 flex flex-col gap-2">
       <div className="overflow-y-auto">
-        {Object.keys(planetProperties).map((label) => {
-          if (planetProperties[label]) {
+        {Object.keys(planetFields).map((label) => {
+          if (planetFields[label]) {
             return (
               <div className="flex border-b border-gray-800" key={label}>
                 <Text loading={loading} label>
                   {label}
                 </Text>
                 <Text className="flex-1" loading={loading}>
-                  {planetProperties[label]}
+                  {planetFields[label]}
                 </Text>
               </div>
             );

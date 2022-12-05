@@ -2,12 +2,12 @@ import { Breadcrumbs } from './Breadcrumbs';
 import { observer } from 'mobx-react-lite';
 import { Text } from './Text';
 
-export const Header = observer(({ store }) => {
+export const Header = observer(({ store, showFilter }) => {
   const handleFilterChange = (e) => store.updatePlanetFilter(e.target.value);
   return (
     <div className="flex justify-between items-center">
       <Breadcrumbs store={store} />
-      {!store.selectedPlanet && (
+      {showFilter && (
         <label>
           <Text label>Filter</Text>
           <input

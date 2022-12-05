@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { ResidentList } from '../components/ResidentList/ResidentList';
 import { values } from 'mobx';
+import { Header } from '../components/Header';
 
 export const PlanetResidents = observer(({ store }) => {
   const { planetUrl } = useParams();
@@ -20,11 +21,15 @@ export const PlanetResidents = observer(({ store }) => {
   };
   // console.log(values(store.selectedPlanetResidents).map((resident) => resident.name));
   return (
-    <ResidentList
-      selectedPlanetResidents={values(store.selectedPlanetResidents)}
-      selectedPlanet={store.selectedPlanet}
-      handleClickResident={handleClickResident}
-      loading={store.getSelectedPlanetResidentsState === 'loading'}
-    />
+    <>
+      <Header store={store} />
+      <ResidentList
+        selectedPlanetResidents={values(store.selectedPlanetResidents)}
+        selectedPlanet={store.selectedPlanet}
+        handleClickResident={handleClickResident}
+        loadingPlanet={store.setSelectedPlanetState === 'loading'}
+        loadingResidents={store.getSelectedPlanetResidentsState === 'loading'}
+      />
+    </>
   );
 });

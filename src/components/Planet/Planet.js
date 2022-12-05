@@ -7,11 +7,7 @@ import { PlanetData } from './PlanetData';
 export const Planet = ({ planet, className, loading, onClickResidents }) => (
   <Card
     aria-label={loading ? 'Loading' : planet?.name}
-    className={classNames(
-      'flex flex-col md:flex-row justify-between aspect-video',
-      { 'animate-pulse': loading },
-      className
-    )}
+    className={classNames('justify-between', { 'animate-pulse': loading }, className)}
   >
     <div className="flex-1 flex flex-col items-stretch gap-y-4">
       <Text className="text-center overflow-y-auto overflow-x-hidden" header loading={loading}>
@@ -24,7 +20,7 @@ export const Planet = ({ planet, className, loading, onClickResidents }) => (
       <PlanetData planet={planet} loading={loading} />
       <button
         onClick={() => onClickResidents(planet?.url)}
-        className="border border-gray-200 p-2 font-distant-galaxy"
+        className="border border-gray-200 rounded-md p-2 font-distant-galaxy"
       >
         <Text loading={loading}>View Residents</Text>
       </button>

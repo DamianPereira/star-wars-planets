@@ -1,34 +1,9 @@
-import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
-import App from './App';
-import { MemoryRouter } from 'react-router-dom';
-import React from 'react';
+import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { userEvent } from '@storybook/testing-library';
-import { RootStore } from './model/RootStore';
-import { TatooineMock } from './mocks/TatooineMock';
+import { TatooineMock } from '../mocks/TatooineMock';
+import { clickTatooine, renderApp, waitForLoading } from './utils';
 
-describe('App', () => {
-  const renderApp = (initialUrl = '/') => {
-    return render(
-      <React.StrictMode>
-        <MemoryRouter initialEntries={[initialUrl]}>
-          <App store={RootStore.create({})} />
-        </MemoryRouter>
-      </React.StrictMode>
-    );
-  };
-
-  const waitForLoading = async () => {
-    const loading = await screen.findAllByLabelText('Loading');
-    await waitForElementToBeRemoved(loading);
-  };
-
-  const clickTatooine = async () => {
-    await waitForLoading();
-    const viewResidents = await screen.findAllByRole('button', { name: 'View Residents' });
-    await userEvent.click(viewResidents[0]);
-    await waitForLoading();
-  };
-
+describe('PlanetList', () => {
   it('Renders 10 loading planets while page is loading', async () => {
     renderApp();
     const loading = await screen.findAllByLabelText('Loading');
@@ -49,26 +24,12 @@ describe('App', () => {
     expect(edgePlanet).toBeInTheDocument();
   });
 
-  it('Shows a planet resident when clicking view residents', async () => {
-    renderApp();
-    await clickTatooine();
-    const resident = await screen.findByText('Luke Skywalker 1');
-    expect(resident).toBeInTheDocument();
-  });
-
   it('Does not re-load planets when navigating back after viewing residents', async () => {
     renderApp();
     await clickTatooine();
     const AllPlanets = await screen.findByRole('link', { name: 'All Planets' });
     await userEvent.click(AllPlanets);
     expect(screen.queryAllByLabelText('Loading').length).toBe(0);
-  });
-
-  it('Loads one resident for each planet resident', async () => {
-    renderApp();
-    await clickTatooine();
-    const residents = await screen.findAllByText(/Luke Skywalker/);
-    expect(residents.length).toBe(TatooineMock.residents.length);
   });
 
   it('Shows all planets again when clicking all planets in the breadcrumb', async () => {
@@ -90,11 +51,5 @@ describe('App', () => {
     await waitForLoading();
     const residents = await screen.findAllByText(/Luke Skywalker/);
     expect(residents.length).toBe(TatooineMock.residents.length);
-  });
-
-  it('When url is a resident, shows the name', async () => {
-    renderApp(`/residents/${encodeURIComponent(TatooineMock.residents[0])}`);
-    const luke = await screen.findByLabelText('Luke Skywalker 1');
-    expect(luke).toBeInTheDocument();
   });
 });
