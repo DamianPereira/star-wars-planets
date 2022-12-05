@@ -31,5 +31,5 @@ export const TatooineMock = {
   ],
   created: '2014-12-09T13:50:49.641000Z',
   edited: '2014-12-20T20:58:18.411000Z',
-  url: `${swapiEndpoint}/planets/1`,
+  url: `${swapiEndpoint}/planets/1/`,
 };

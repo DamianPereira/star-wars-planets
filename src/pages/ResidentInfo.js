@@ -7,12 +7,14 @@ export const ResidentInfo = observer(({ store }) => {
   const { residentUrl } = useParams();
 
   useEffect(() => {
-    store.setSelectedResident(residentUrl);
+    store.setSelectedResident(residentUrl, () => {
+      store.setSelectedPlanet(store.selectedResident.homeworld);
+    });
   }, [residentUrl, store]);
 
   return (
     store.selectedResident && (
-      <>
+      <div aria-label={store.selectedResident.name}>
         <Text header className="mt-6 mb-2">
           {store.selectedResident.name}
         </Text>
@@ -20,7 +22,7 @@ export const ResidentInfo = observer(({ store }) => {
           <Text label>Name</Text>
           <Text>{store.selectedResident.name}</Text>
         </div>
-      </>
+      </div>
     )
   );
 });

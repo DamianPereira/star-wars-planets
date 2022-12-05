@@ -1,4 +1,4 @@
-import { flow, types } from 'mobx-state-tree';
+import { addMiddleware, flow, getSnapshot, types } from 'mobx-state-tree';
 import { Planet } from './Planet';
 import { PlanetService } from '../services/PlanetService';
 import { values } from 'mobx';
@@ -19,6 +19,10 @@ export const RootStore = types
       types.enumeration('state', ['unstarted', 'loading', 'done', 'error']),
       'unstarted'
     ),
+    getSelectedPlanetResidentsState: types.optional(
+      types.enumeration('state', ['unstarted', 'loading', 'done', 'error']),
+      'unstarted'
+    ),
     selectedPlanet: types.maybeNull(types.reference(Planet)),
     selectedPlanetResidents: types.array(People),
     selectedResident: types.maybeNull(types.reference(People)),
@@ -33,7 +37,7 @@ export const RootStore = types
   }))
   .actions((self) => ({
     initializePlanets: flow(function* initializePlanets() {
-      if (self.initializePlanetsState === 'loading') {
+      if (self.initializePlanetsState === 'loading' || self.planets.length > 1) {
         return;
       }
       self.planets = [];
@@ -46,12 +50,10 @@ export const RootStore = types
         self.initializePlanetsState = 'error';
       }
     }),
-    setSelectedPlanet: flow(function* setSelectedPlanet(planetUrl) {
+    setSelectedPlanet: flow(function* setSelectedPlanet(planetUrl, callback) {
       if (self.setSelectedPlanetState === 'loading') {
         return;
       }
-      self.selectedPlanet = null;
-      self.selectedPlanetResidents = [];
       self.setSelectedPlanetState = 'loading';
       const existingPlanet = values(self.planets).find((planet) => planet.url === planetUrl);
       if (!existingPlanet) {
@@ -63,6 +65,15 @@ export const RootStore = types
         }
       }
       self.selectedPlanet = planetUrl;
+      self.setSelectedPlanetState = 'done';
+      callback && callback();
+    }),
+    getSelectedPlanetResidents: flow(function* getSelectedPlanetResidents() {
+      if (self.getSelectedPlanetResidentsState === 'loading') {
+        return;
+      }
+      self.getSelectedPlanetResidentsState = 'loading';
+      self.selectedPlanetResidents = [];
       for (const residentUrl of self.selectedPlanet.residents) {
         try {
           self.selectedPlanetResidents.push(
@@ -70,12 +81,12 @@ export const RootStore = types
           );
         } catch (error) {
           console.error('Failed to fetch planets', error);
-          self.setSelectedPlanetState = 'error';
+          self.getSelectedPlanetResidentsState = 'error';
         }
       }
-      self.setSelectedPlanetState = 'done';
+      self.getSelectedPlanetResidentsState = 'done';
     }),
-    setSelectedResident: flow(function* setSelectedResident(residentUrl) {
+    setSelectedResident: flow(function* setSelectedResident(residentUrl, callback) {
       if (self.setSelectedResidentState === 'loading') {
         return;
       }
@@ -95,13 +106,8 @@ export const RootStore = types
         }
       }
       self.selectedResident = residentUrl;
-      self.planets = [
-        yield PlanetService.fetchPlanet({
-          planetUrl: self.selectedResident.homeworld,
-        }),
-      ];
-      self.selectedPlanet = self.selectedResident.homeworld;
       self.setSelectedResidentState = 'done';
+      callback && callback();
     }),
     clearSelectedPlanet: () => {
       self.selectedPlanet = null;

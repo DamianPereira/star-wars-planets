@@ -12,11 +12,9 @@ export const PlanetList = observer(({ store }) => {
   };
 
   useEffect(() => {
-    if (store.planetsProcessed.length <= 1) {
-      store.initializePlanets();
-    }
     store.clearSelectedResident();
     store.clearSelectedPlanet();
+    store.initializePlanets();
   }, [store]);
 
   return (
