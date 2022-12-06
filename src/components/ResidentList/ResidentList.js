@@ -4,12 +4,9 @@ import classNames from 'classnames';
 const Resident = ({ resident, handleClickResident, loading, ...props }) => (
   <button
     onClick={() => handleClickResident(resident?.url)}
-    className={classNames(
-      'relative p-8 flex justify-center items-center bg-star-wars-thin aspect-thin',
-      {
-        'animate-pulse': loading,
-      }
-    )}
+    className={classNames('flex justify-center items-center bg-star-wars-thin aspect-thin', {
+      'animate-pulse': loading,
+    })}
     {...props}
   >
     <Text className="flex-1" label loading={loading}>
