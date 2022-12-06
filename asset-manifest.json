@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/star-wars-planets/static/css/main.6af72959.css",
-    "main.js": "/star-wars-planets/static/js/main.aa8be119.js",
+    "main.css": "/star-wars-planets/static/css/main.329fdfac.css",
+    "main.js": "/star-wars-planets/static/js/main.b15d57dd.js",
     "static/js/787.f0bc7a7d.chunk.js": "/star-wars-planets/static/js/787.f0bc7a7d.chunk.js",
     "static/media/SFDistantGalaxyOutline.ttf": "/star-wars-planets/static/media/SFDistantGalaxyOutline.a6c22ce021c26da989f7.ttf",
     "static/media/SFDistantGalaxy.ttf": "/star-wars-planets/static/media/SFDistantGalaxy.303d8432635f6e47b236.ttf",
@@ -13,12 +13,12 @@
     "static/media/background-vertical.svg": "/star-wars-planets/static/media/background-vertical.fd49faeb7421605a5840.svg",
     "static/media/background-thin.svg": "/star-wars-planets/static/media/background-thin.82229e9f0aaab0875783.svg",
     "static/media/background.svg": "/star-wars-planets/static/media/background.6db90feed4da589de0ef.svg",
-    "main.6af72959.css.map": "/star-wars-planets/static/css/main.6af72959.css.map",
-    "main.aa8be119.js.map": "/star-wars-planets/static/js/main.aa8be119.js.map",
+    "main.329fdfac.css.map": "/star-wars-planets/static/css/main.329fdfac.css.map",
+    "main.b15d57dd.js.map": "/star-wars-planets/static/js/main.b15d57dd.js.map",
     "787.f0bc7a7d.chunk.js.map": "/star-wars-planets/static/js/787.f0bc7a7d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6af72959.css",
-    "static/js/main.aa8be119.js"
+    "static/css/main.329fdfac.css",
+    "static/js/main.b15d57dd.js"
   ]
 }
