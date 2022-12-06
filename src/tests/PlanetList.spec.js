@@ -37,7 +37,7 @@ describe('PlanetList', () => {
     await clickTatooine();
     const allPlanetsLink = await screen.findByRole('link', { name: 'All Planets' });
     await userEvent.click(allPlanetsLink);
-    expect(await screen.findByText('Tatooine')).toBeInTheDocument();
+    expect(await screen.findByText('Tattooine')).toBeInTheDocument();
     expect(await screen.findByText('🪐EdgePlanet with a long name 🪐')).toBeInTheDocument();
   });
 
