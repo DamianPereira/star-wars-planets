@@ -13,7 +13,7 @@ to intercept and mock SWAPI requests, if you want to run against the real world,
 ## Used libraries
 
 The main data fetching and handling is done using [mobx-state-tree](https://mobx-state-tree.js.org/intro/welcome), with the store in RootStore. \
-Styling is done with [tailwind](https://tailwindcss.com/).
+Styling is done with [tailwind](https://tailwindcss.com/). Storybook was used to aid in visual component development.
 
 ## Available Scripts
 
@@ -26,6 +26,10 @@ Open [http://localhost:3000/star-wars-planets](http://localhost:3000/star-wars-p
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+### `npm run storybook`
+
+Starts a development server in [https://localhost:6006](https://localhost:6006), where you can play around with React components used through the app.
 
 ### `npm test`
 
