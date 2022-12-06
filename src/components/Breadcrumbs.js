@@ -1,7 +1,6 @@
 import { Text } from './Text';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import { values } from 'mobx';
 import { tryReference } from 'mobx-state-tree';
 
 const Separator = () => (
