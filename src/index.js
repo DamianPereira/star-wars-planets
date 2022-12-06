@@ -8,6 +8,7 @@ import { RootStore } from './model/RootStore';
 import { setupWorker } from 'msw';
 import { handlers } from './mocks/handlers';
 
+// Comment this out to run development with real endpoint
 if (process.env.NODE_ENV === 'development') {
   const worker = setupWorker(...handlers);
   worker.start();
